@@ -39,6 +39,13 @@ public class TMService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, TAG + " TMService : onStartCommand()");
+        //新建工作线程
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // 开始执行后台任务
+            }
+        }).start();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -66,6 +73,13 @@ public class TMService extends Service {
 
         public void service_connect_Activity() {
             Log.d(TAG, "Service关联了Activity,并在Activity执行了Service的方法");
+            //新建工作线程
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // 执行具体的下载任务
+                }
+            }).start();
         }
     }
 }

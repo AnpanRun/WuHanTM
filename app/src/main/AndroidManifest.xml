@@ -18,7 +18,15 @@
         </activity>
 
         <activity android:name=".activity.RvActivity"></activity>
+
         <service android:name=".service.TMService"></service>
+        <service
+            android:name=".service.RemoteService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.lzh.wuhantm.service.AIDL_Service"></action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
