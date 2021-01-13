@@ -18,6 +18,7 @@
         </activity>
 
         <activity android:name=".activity.RvActivity"></activity>
+        <service android:name=".service.TMService"></service>
     </application>
 
 </manifest>
