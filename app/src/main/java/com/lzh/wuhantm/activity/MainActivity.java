@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         //在Activity与Service监理关联和解除关联的时候调用
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG , TAG + " : onServiceConnected");
+            Log.d(TAG, TAG + " : onServiceConnected");
             //实例化Service的内部类myBinder
             //通过向下转型得到了MyBinder的实例
             myBinder = (TMService.MyBinder) service;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         //在Activity与Service解除关联的时候调用
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.d(TAG , TAG + " : onServiceDisconnected");
+            Log.d(TAG, TAG + " : onServiceDisconnected");
         }
     };
 
