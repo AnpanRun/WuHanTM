@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtStopService;
     private Button mBtBindService;
     private Button mBtUnbindService;
+    private Button mBtOpenFg;
 
     private TMService.MyBinder myBinder;
 
@@ -63,11 +65,32 @@ public class MainActivity extends AppCompatActivity {
         mBtStopService = (Button) findViewById(R.id.bt_close_service);
         mBtBindService = (Button) findViewById(R.id.bt_bind_service);
         mBtUnbindService = (Button) findViewById(R.id.bt_unbind_service);
+        mBtOpenFg = (Button) findViewById(R.id.bt_open_fragment);
 
         mBtGotoRv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RvActivity.class);
+                // 标记位属性	含义
+                // FLAG_ACTIVITY_SINGLE_TOP	指定启动模式为栈顶复用模式（SingleTop）
+                // FLAG_ACTIVITY_NEW_TASK	指定启动模式为栈内复用模式（SingleTask）
+                // FLAG_ACTIVITY_CLEAR_TOP	所有位于其上层的Activity都要移除，SingleTask模式默认具有此标记效果
+                // FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS	具有该标记的Activity不会出现在历史Activity的列表中，即无法通过历史列表回到该Activity上
+                //  AndroidMainfest.xml 二者设置的区别
+                //  优先级不同
+                //  Intent设置方式的优先级 > Manifest设置方式，即 以前者为准
+                //  限定范围不同
+                //  Manifest设置方式无法设定 FLAG_ACTIVITY_CLEAR_TOP；Intent设置方式 无法设置单例模式（SingleInstance）
+
+                /**
+                 * 通过 Flag 设置启动模式，有谬误的地方：
+                 * FLAG_ACTIVITY_NEW_TASK != SingleTask
+                 * 应该是：
+                 * FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TOP == SingleTask
+                 *
+                 * 而且如果单独用 FLAG_ACTIVITY_CLEAR_TOP，如果 Manifest 是 standard，则目标 Activity 也会出栈，并重新走 onCreate() 方法，不走 onNewIntent() 方法
+                 */
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -110,12 +133,40 @@ public class MainActivity extends AppCompatActivity {
                 unbindService(connection);
             }
         });
+
+        mBtOpenFg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TMFmActivity.class));
+            }
+        });
     }
 
     private void initData() {
 
     }
 
+
+    /**
+     * onSaveInstanceState()在onPause()之后，onStop()之前调用
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, TAG + " MainActivity : onSaveInstanceState()");
+    }
+
+    /**
+     * onRestoreInstanceState()在onStart()之后，onResume()之前
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d(TAG, TAG + " MainActivity : onRestoreInstanceState()");
+
+    }
     @Override
     protected void onStart() {
         super.onStart();

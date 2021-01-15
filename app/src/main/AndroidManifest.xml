@@ -16,15 +16,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 属性
+            //standard：标准模式
+            //singleTop：栈顶复用模式
+            //singleTask：栈内复用模式
+            //singleInstance：单例模式
+            //如不设置，Activity的启动模式默认为**标准模式（standard）**
+        -->
+        <activity android:name=".activity.RvActivity"
+            android:launchMode="standard"/>
+        <activity android:name=".activity.TMFmActivity" />
 
-        <activity android:name=".activity.RvActivity"></activity>
-
-        <service android:name=".service.TMService"></service>
+        <service android:name=".service.TMService" />
         <service
             android:name=".service.RemoteService"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.lzh.wuhantm.service.AIDL_Service"></action>
+                <action android:name="com.lzh.wuhantm.service.AIDL_Service" />
             </intent-filter>
         </service>
     </application>

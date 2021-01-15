@@ -43,4 +43,10 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/bt_open_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="复习Fragment"
+        ></Button>
 </LinearLayout>
