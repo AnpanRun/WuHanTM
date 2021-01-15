@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtBindService;
     private Button mBtUnbindService;
     private Button mBtOpenFg;
+    private Button mBtOpenSqlite;
 
     private TMService.MyBinder myBinder;
 
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         mBtBindService = (Button) findViewById(R.id.bt_bind_service);
         mBtUnbindService = (Button) findViewById(R.id.bt_unbind_service);
         mBtOpenFg = (Button) findViewById(R.id.bt_open_fragment);
+        mBtOpenSqlite = (Button) findViewById(R.id.bt_open_sqlite);
 
         mBtGotoRv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +144,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, TMFmActivity.class));
+            }
+        });
+
+        mBtOpenSqlite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, SQLiteActivity.class));
             }
         });
     }

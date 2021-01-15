@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.lzh.wuhantm">
 
     <application
@@ -9,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WuHanTM">
+        <activity android:name=".activity.SQLiteActivity"></activity>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,15 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 属性
+
+        <!--
+ 属性
             //standard：标准模式
             //singleTop：栈顶复用模式
             //singleTask：栈内复用模式
             //singleInstance：单例模式
             //如不设置，Activity的启动模式默认为**标准模式（standard）**
         -->
-        <activity android:name=".activity.RvActivity"
-            android:launchMode="standard"/>
+        <activity
+            android:name=".activity.RvActivity"
+            android:launchMode="standard" />
         <activity android:name=".activity.TMFmActivity" />
 
         <service android:name=".service.TMService" />
@@ -35,8 +40,8 @@
                 <action android:name="com.lzh.wuhantm.service.AIDL_Service" />
             </intent-filter>
         </service>
-
-        <!--    android:enabled=["true" | "false"]
+        <!--
+    android:enabled=["true" | "false"]
                 此broadcastReceiver能否接收其他App的发出的广播
                 默认值是由receiver中有无intent-filter决定的：如果有intent-filter，默认值为true，否则为false
                 android:exported=["true" | "false"]
@@ -50,12 +55,12 @@
                 默认为app的进程，可以指定独立的进程
                 注：Android四大基本组件都可以通过此属性指定自己的独立进程
                 android:process="string"
-                -->
+        -->
         <receiver
             android:name=".br.TMBroadcastReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
     </application>
