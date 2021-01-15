@@ -2,6 +2,7 @@ package com.lzh.wuhantm.activity;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lzh.wuhantm.R;
+import com.lzh.wuhantm.br.TMBroadcastReceiver;
 import com.lzh.wuhantm.service.TMService;
 
 
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtOpenFg;
 
     private TMService.MyBinder myBinder;
+
+    private TMBroadcastReceiver tmBroadcastReceiver;
 
     //创建ServiceConnection的匿名类
     private ServiceConnection connection = new ServiceConnection() {
@@ -149,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * onSaveInstanceState()在onPause()之后，onStop()之前调用
+     *
      * @param outState
      */
     @Override
@@ -159,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * onRestoreInstanceState()在onStart()之后，onResume()之前
+     *
      * @param savedInstanceState
      */
     @Override
@@ -167,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, TAG + " MainActivity : onRestoreInstanceState()");
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -177,12 +184,43 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.d(TAG, TAG + "MainActivity : onResume()");
+
+        //动态注册广播
+        //1.实例化BroadcastReceiver子类 & IntentFilter
+        tmBroadcastReceiver = new TMBroadcastReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+
+        //2.设置接收广播的类型
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        intentFilter.addAction("lzh.action");
+
+        //3.动态注册：调用Context的registerReceiver()方法
+        registerReceiver(tmBroadcastReceiver, intentFilter);
+
+
+        sendBroadcast(new Intent().setAction("lzh.action"));
+        //发送有序广播
+        sendOrderedBroadcast(new Intent().setAction("lzh.action") , "11");
     }
 
+
+    // 注册广播后，要在相应位置记得销毁广播
+    // 即在onPause() 中unregisterReceiver(mBroadcastReceiver)
+    // 当此Activity实例化时，会动态将MyBroadcastReceiver注册到系统中
+    // 当此Activity销毁时，动态注册的MyBroadcastReceiver将不再接收到相应的广播
+
+    /**
+     * 不在onCreate() & onDestory() 或 onStart() & onStop()注册、注销是因为：
+     * 当系统因为内存不足（优先级更高的应用需要内存，请看上图红框）要回收Activity占用的资源时，Activity在执行完onPause()方法后就会被销毁，有些生命周期方法onStop()，onDestory()就不会执行。当再回到此Activity时，是从onCreate方法开始执行。
+     * 假设我们将广播的注销放在onStop()，onDestory()方法里的话，有可能在Activity被销毁后还未执行onStop()，onDestory()方法，即广播仍还未注销，从而导致内存泄露。
+     * 但是，onPause()一定会被执行，从而保证了广播在App死亡前一定会被注销，从而防止内存泄露。
+     */
     @Override
     protected void onPause() {
         super.onPause();
         Log.d(TAG, TAG + "MainActivity : onPause()");
+        //销毁在onResume()方法中的广播
+        unregisterReceiver(tmBroadcastReceiver);
     }
 
     @Override

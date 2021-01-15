@@ -35,6 +35,29 @@
                 <action android:name="com.lzh.wuhantm.service.AIDL_Service" />
             </intent-filter>
         </service>
+
+        <!--    android:enabled=["true" | "false"]
+                此broadcastReceiver能否接收其他App的发出的广播
+                默认值是由receiver中有无intent-filter决定的：如果有intent-filter，默认值为true，否则为false
+                android:exported=["true" | "false"]
+                android:icon="drawable resource"
+                android:label="string resource"
+                继承BroadcastReceiver子类的类名
+                android:name=".mBroadcastReceiver"
+                具有相应权限的广播发送者发送的广播才能被此BroadcastReceiver所接收；
+                android:permission="string"
+                BroadcastReceiver运行所处的进程
+                默认为app的进程，可以指定独立的进程
+                注：Android四大基本组件都可以通过此属性指定自己的独立进程
+                android:process="string"
+                -->
+        <receiver
+            android:name=".br.TMBroadcastReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
