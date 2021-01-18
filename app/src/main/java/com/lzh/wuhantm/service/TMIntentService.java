@@ -5,6 +5,10 @@ import android.content.Intent;
 
 import androidx.annotation.Nullable;
 
+/**
+ * 不建议通过bindService()启动IntentService
+ * 在IntentService中,onBind() 默认返回null
+ */
 public class TMIntentService extends IntentService {
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
