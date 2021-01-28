@@ -63,4 +63,19 @@
         android:layout_height="wrap_content"
         android:text="复习Thread"
         ></Button>
+
+    <Button
+        android:id="@+id/bt_open_tmview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="复习自定义View"
+        ></Button>
+
+    <Button
+        android:id="@+id/bt_post_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="eventbus"
+        ></Button>
+
 </LinearLayout>

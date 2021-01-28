@@ -12,6 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.lzh.wuhantm.R;
+import com.lzh.wuhantm.bean.MessageWrap;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  *  复习Fragment
@@ -34,6 +37,7 @@ public class TMFmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragmentdemo);
         replaceFragment(new RightFragment());
+        EventBus.getDefault().post(MessageWrap.getInstance("来自TMFmActivity的消息"));
     }
 
     /**
@@ -141,6 +145,5 @@ public class TMFmActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         Log.d(TAG, TAG + " TMFmActivity : onNewIntent()");
     }
-    
-    
+
 }

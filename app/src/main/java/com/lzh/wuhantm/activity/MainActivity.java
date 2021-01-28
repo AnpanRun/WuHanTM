@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +16,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lzh.wuhantm.R;
+import com.lzh.wuhantm.bean.MessageWrap;
 import com.lzh.wuhantm.br.TMBroadcastReceiver;
 import com.lzh.wuhantm.service.TMService;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtOpenFg;
     private Button mBtOpenSqlite;
     private Button mBtOpenTmThread;
+    private Button mBtOpenTmView;
+    private Button mBtPostEvent;
 
     private TMService.MyBinder myBinder;
 
@@ -63,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initData();
         initView();
+        EventBus.getDefault().register(this);
     }
 
     private void initView() {
@@ -74,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
         mBtOpenFg = (Button) findViewById(R.id.bt_open_fragment);
         mBtOpenSqlite = (Button) findViewById(R.id.bt_open_sqlite);
         mBtOpenTmThread = (Button) findViewById(R.id.bt_open_tmthread);
+        mBtOpenTmView = (Button) findViewById(R.id.bt_open_tmview);
+        mBtPostEvent = (Button) findViewById(R.id.bt_post_event);
 
         mBtGotoRv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +173,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, TMThreadActivity.class));
             }
         });
+
+        mBtOpenTmView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this , TMViewActivity.class));
+            }
+        });
+
+        mBtPostEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //EventBus.getDefault().post(MessageWrap.getInstance("Anpan Go!!"));
+            }
+        });
     }
 
     private void initData() {
@@ -244,6 +269,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
         Log.d(TAG, TAG + "MainActivity : onDestroy()");
     }
 
@@ -263,5 +291,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         Log.d(TAG, TAG + "MainActivity : onNewIntent()");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageWrap messageWrap){
+        Log.d(TAG, "收到Event消息:" + messageWrap.message);
     }
 }
