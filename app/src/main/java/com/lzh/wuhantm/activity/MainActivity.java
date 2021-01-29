@@ -14,6 +14,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import com.lzh.wuhantm.R;
 import com.lzh.wuhantm.bean.MessageWrap;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtOpenTmThread;
     private Button mBtOpenTmView;
     private Button mBtPostEvent;
+    private Button mBtOpenVp;
 
     private TMService.MyBinder myBinder;
 
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         mBtOpenTmThread = (Button) findViewById(R.id.bt_open_tmthread);
         mBtOpenTmView = (Button) findViewById(R.id.bt_open_tmview);
         mBtPostEvent = (Button) findViewById(R.id.bt_post_event);
+        mBtOpenVp = (Button) findViewById(R.id.bt_open_vp);
 
         mBtGotoRv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         mBtOpenTmView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this , TMViewActivity.class));
+                startActivity(new Intent(MainActivity.this, TMViewActivity.class));
             }
         });
 
@@ -185,6 +188,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //EventBus.getDefault().post(MessageWrap.getInstance("Anpan Go!!"));
+            }
+        });
+
+        mBtOpenVp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, ViewPageActivity.class));
             }
         });
     }
@@ -269,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(EventBus.getDefault().isRegistered(this)) {
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
         Log.d(TAG, TAG + "MainActivity : onDestroy()");
@@ -294,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void Event(MessageWrap messageWrap){
+    public void Event(MessageWrap messageWrap) {
         Log.d(TAG, "收到Event消息:" + messageWrap.message);
     }
 }

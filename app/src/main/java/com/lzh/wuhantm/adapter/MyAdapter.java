@@ -37,7 +37,11 @@ public class MyAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new Viewholder(inflater.inflate(R.layout.layout, null));
+        View item = inflater.inflate(R.layout.layout, null);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT ,ViewGroup.LayoutParams.MATCH_PARENT);
+        item.setLayoutParams(lp);
+        return new Viewholder(item);
+
     }
 
     @Override

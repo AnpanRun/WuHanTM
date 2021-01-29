@@ -3,27 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/ItemImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-        </ImageView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="title"
-            android:id="@+id/Itemtitle">
-        </TextView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/ItemText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TEXT">
-        </TextView>
-    </RelativeLayout>
+            android:text="TEXT"></TextView>
+
+        <TextView
+            android:id="@+id/Itemtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"></TextView>
+
+        <ImageView
+            android:id="@+id/ItemImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_background"></ImageView>
+    </LinearLayout>
 </LinearLayout>

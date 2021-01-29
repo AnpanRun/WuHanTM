@@ -31,6 +31,8 @@
             android:name=".activity.RvActivity"
             android:launchMode="standard" />
         <activity android:name=".activity.TMFmActivity" />
+        <activity android:name=".activity.TMViewActivity" />
+        <activity android:name=".activity.ViewPageActivity" />
 
         <service android:name=".service.TMService" />
         <service
