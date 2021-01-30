@@ -6,7 +6,6 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.lzh.wuhantm.R;
 import com.lzh.wuhantm.bean.MessageWrap;
@@ -40,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mBtOpenTmView;
     private Button mBtPostEvent;
     private Button mBtOpenVp;
+    private Button mBtOpenDB;
 
     private TMService.MyBinder myBinder;
 
@@ -88,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         mBtOpenTmView = (Button) findViewById(R.id.bt_open_tmview);
         mBtPostEvent = (Button) findViewById(R.id.bt_post_event);
         mBtOpenVp = (Button) findViewById(R.id.bt_open_vp);
+        mBtOpenDB = (Button) findViewById(R.id.bt_open_db);
 
         mBtGotoRv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +195,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, ViewPageActivity.class));
+            }
+        });
+
+        mBtOpenDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, DataBindingActivity.class));
             }
         });
     }

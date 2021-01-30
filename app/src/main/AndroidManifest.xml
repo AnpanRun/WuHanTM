@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WuHanTM">
-        <activity android:name=".activity.TMThreadActivity"></activity>
+        <activity android:name=".activity.DataBindingActivity"></activity>
+        <activity android:name=".activity.TMThreadActivity" />
         <activity android:name=".activity.SQLiteActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -34,14 +35,14 @@
         <activity android:name=".activity.TMViewActivity" />
         <activity android:name=".activity.ViewPageActivity" />
 
-        <service android:name=".service.TMService" />
-        <service
-            android:name=".service.RemoteService"
-            android:exported="true">
+        <receiver
+            android:name=".br.TMBroadcastReceiver"
+            android:enabled="true">
             <intent-filter>
-                <action android:name="com.lzh.wuhantm.service.AIDL_Service" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </service>
+        </receiver>
+        <service android:name=".service.TMService" />
         <!--
     android:enabled=["true" | "false"]
                 此broadcastReceiver能否接收其他App的发出的广播
@@ -58,13 +59,13 @@
                 注：Android四大基本组件都可以通过此属性指定自己的独立进程
                 android:process="string"
         -->
-        <receiver
-            android:name=".br.TMBroadcastReceiver"
-            android:enabled="true">
+        <service
+            android:name=".service.RemoteService"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.lzh.wuhantm.service.AIDL_Service" />
             </intent-filter>
-        </receiver>
+        </service>
     </application>
 
 </manifest>

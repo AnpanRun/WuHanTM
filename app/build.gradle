@@ -5,6 +5,13 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
+//    obsolete
+//    dataBinding{
+//        enabled = true
+//    }
+    buildFeatures{
+        dataBinding = true
+    }
 
     defaultConfig {
         applicationId "com.lzh.wuhantm"

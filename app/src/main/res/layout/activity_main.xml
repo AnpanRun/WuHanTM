@@ -85,4 +85,11 @@
         android:text="复习ViewPage2"
         ></Button>
 
+    <Button
+        android:id="@+id/bt_open_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="学习DataBinding"
+        ></Button>
+
 </LinearLayout>
