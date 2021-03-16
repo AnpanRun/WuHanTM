@@ -10,15 +10,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WuHanTM">
-        <activity android:name=".activity.DataBindingActivity"></activity>
-        <activity android:name=".activity.TMThreadActivity" />
-        <activity android:name=".activity.SQLiteActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.HookActivity"
+            android:label="@string/title_activity_hook"
+            android:theme="@style/Theme.WuHanTM.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.DataBindingActivity" />
+        <activity android:name=".activity.TMThreadActivity" />
+        <activity android:name=".activity.SQLiteActivity" />
+        <activity android:name=".view.SJFFActivity">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+        <activity android:name=".activity.MainActivity">
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <!--
  属性
@@ -42,6 +61,7 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
         <service android:name=".service.TMService" />
         <!--
     android:enabled=["true" | "false"]

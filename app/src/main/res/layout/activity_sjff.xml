@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.SJFFActivity">
+
+    <com.lzh.wuhantm.view.TMLinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/purple_200">
+
+        <com.lzh.wuhantm.view.TMButton
+            android:layout_width="50dp"
+            android:layout_height="100dp"
+            android:background="@color/cardview_dark_background"
+            android:text="按钮按钮按钮按钮">
+        </com.lzh.wuhantm.view.TMButton>
+    </com.lzh.wuhantm.view.TMLinearLayout>
+</LinearLayout>
